@@ -15,7 +15,6 @@ import org.netbeans.api.project.SourceGroup;
 import org.netbeans.api.project.Sources;
 import org.netbeans.spi.project.ui.templates.support.Templates;
 import org.openide.WizardDescriptor;
-import org.openide.WizardDescriptor.Panel;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataFolder;
 import org.openide.loaders.DataObject;
@@ -31,10 +30,10 @@ public class Symfony2BaseWizardIterator implements WizardDescriptor.Instantiatin
     
     private List<WizardDescriptor.Panel<WizardDescriptor>> panels;
 
-    public Map getArgsWithNamespace(FileObject dir) throws IOException {
+    public Map<String, String> getArgsWithNamespace(FileObject dir) throws IOException {
         
-        String namespace = FileTemplatesUtils.getNamespaceForPhp(dir.getURL().toString());
-        Map wizardArgs = Collections.singletonMap(NAMESPACE_DIR, namespace);
+        String namespace = FileTemplatesUtils.getNamespaceForPhp(dir.toURL().toString());
+        Map<String, String> wizardArgs = Collections.singletonMap(NAMESPACE_DIR, namespace);
         
         return wizardArgs;
     }
@@ -56,7 +55,7 @@ public class Symfony2BaseWizardIterator implements WizardDescriptor.Instantiatin
         FileObject dir = Templates.getTargetFolder(wizard);
         FileObject template = Templates.getTemplate(wizard);
         
-        Map wizardArgs = getArgsWithNamespace(dir);
+        Map<String, String> wizardArgs = getArgsWithNamespace(dir);
         
         DataFolder dataFolder = DataFolder.findFolder(dir);
         DataObject dataTemplate = DataObject.find(template);

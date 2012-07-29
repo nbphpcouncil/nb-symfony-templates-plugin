@@ -28,7 +28,7 @@ public class Symfony2ControllerWizardIterator extends Symfony2BaseWizardIterator
         FileObject dir = Templates.getTargetFolder(wizard);
         FileObject template = Templates.getTemplate(wizard);
         
-        Map wizardArgs = getArgsWithNamespace(dir);
+        Map<String, String> wizardArgs = getArgsWithNamespace(dir);
         
         DataFolder dataFolder = DataFolder.findFolder(dir);
         DataObject dataTemplate = DataObject.find(template);

@@ -31,35 +31,19 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
     private int index;
     private WizardDescriptor wizard;
     private List<WizardDescriptor.Panel<WizardDescriptor>> panels;
-    private Panel<WizardDescriptor> packageChooserPanel;
 
     private List<WizardDescriptor.Panel<WizardDescriptor>> getPanels() {
         Project project = Templates.getProject(wizard);
         Sources sources = ProjectUtils.getSources(project);
         SourceGroup[] groups = sources.getSourceGroups("PHPSOURCE");
-        packageChooserPanel = Templates.createSimpleTargetChooser(project, groups, new Symfony2EntityWizardPanel1());
+        Templates.SimpleTargetChooserBuilder chooserBuilder = Templates.buildSimpleTargetChooser(project, groups);
+        chooserBuilder.bottomPanel(new Symfony2EntityWizardPanel1());
+
         if (panels == null) {
             panels = new ArrayList<WizardDescriptor.Panel<WizardDescriptor>>();
-            panels.add(packageChooserPanel);
-            String[] steps = createSteps();
-            for (int i = 0; i < panels.size(); i++) {
-                Component c = panels.get(i).getComponent();
-                if (steps[i] == null) {
-                    // Default step name to component name of panel. Mainly
-                    // useful for getting the name of the target chooser to
-                    // appear in the list of steps.
-                    steps[i] = c.getName();
-                }
-                if (c instanceof JComponent) { // assume Swing components
-                    JComponent jc = (JComponent) c;
-                    jc.putClientProperty(WizardDescriptor.PROP_CONTENT_SELECTED_INDEX, i);
-                    jc.putClientProperty(WizardDescriptor.PROP_CONTENT_DATA, steps);
-                    jc.putClientProperty(WizardDescriptor.PROP_AUTO_WIZARD_STYLE, true);
-                    jc.putClientProperty(WizardDescriptor.PROP_CONTENT_DISPLAYED, true);
-                    jc.putClientProperty(WizardDescriptor.PROP_CONTENT_NUMBERED, true);
-                }
-            }
+            panels.add(chooserBuilder.create());
         }
+        
         return panels;
     }
 
@@ -85,7 +69,7 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
             optionalTableName = FileTemplatesUtils.tableize(targetName);
         }
         
-        String namespace = FileTemplatesUtils.getNamespaceForPhp(dir.getURL().toString());
+        String namespace = FileTemplatesUtils.getNamespaceForPhp(dir.toURL().toString());
         
         args.put("repoDeclared", isRepositoryDeclared);
         args.put("optionalTableName", optionalTableName);
@@ -160,26 +144,5 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
     @Override
     public void removeChangeListener(ChangeListener l) {
     }
-    // If something changes dynamically (besides moving between panels), e.g.
-    // the number of panels changes in response to user input, then use
-    // ChangeSupport to implement add/removeChangeListener and call fireChange
-    // when needed
-
-    // You could safely ignore this method. Is is here to keep steps which were
-    // there before this wizard was instantiated. It should be better handled
-    // by NetBeans Wizard API itself rather than needed to be implemented by a
-    // client code.
-    private String[] createSteps() {
-        String[] beforeSteps = (String[]) wizard.getProperty("WizardPanel_contentData");
-        assert beforeSteps != null : "This wizard may only be used embedded in the template wizard";
-        String[] res = new String[(beforeSteps.length - 1) + panels.size()];
-        for (int i = 0; i < res.length; i++) {
-            if (i < (beforeSteps.length - 1)) {
-                res[i] = beforeSteps[i];
-            } else {
-                res[i] = panels.get(i - beforeSteps.length + 1).getComponent().getName();
-            }
-        }
-        return res;
-    }
+  
 }
