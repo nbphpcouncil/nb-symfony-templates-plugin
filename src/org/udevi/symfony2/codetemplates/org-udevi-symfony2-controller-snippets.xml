@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE codetemplates PUBLIC "-//NetBeans//DTD Editor Code Templates settings 1.0//EN" "http://www.netbeans.org/dtds/EditorCodeTemplates-1_0.dtd">
+<codetemplates>
+    <codetemplate abbreviation="erem" xml:space="preserve">
+        <code><![CDATA[$em->remove({obj});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="efl" xml:space="preserve">
+        <code><![CDATA[$em->flush();]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="prr" xml:space="preserve">
+        <code><![CDATA[echo "<pre>";
+print_r(${cursor});
+echo "</pre>";]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="getsess" xml:space="preserve">
+        <code><![CDATA[$this->get('request')->getSession()->get('${key}');]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="attribute" xml:space="preserve">
+        <code><![CDATA[$this->getUser()->getAttribute('${cursor}'${cursor});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="forw" xml:space="preserve">
+        <code><![CDATA[return $this->forward('${action}', ${values});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="render" xml:space="preserve">
+        <code><![CDATA[$this->render('${cursor}')]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="red" xml:space="preserve">
+        <code><![CDATA[new RedirectResponse(${url}, ${status})
+                ]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="parameter" xml:space="preserve">
+        <code><![CDATA[$request->getParameter('${cursor}'${cursor});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="efind" xml:space="preserve">
+        <code><![CDATA[$em->find('${class}', ${id});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="etrans" xml:space="preserve">
+        <code><![CDATA[$em->transactional(new funtion($em) {
+    ${cursor}
+});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="newresp" xml:space="preserve">
+        <code><![CDATA[new Response(${cursor})]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="renderview" xml:space="preserve">
+        <code><![CDATA[$this->renderView('${cursor}')]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="getuser" xml:space="preserve">
+        <code><![CDATA[$this->getUser()]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="layout" xml:space="preserve">
+        <code><![CDATA[$this->setLayout(${cursor});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="action" xml:space="preserve">
+        <code><![CDATA[public function ${name}Action(${cursor})
+{
+    ${cursor}
+}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="setsess" xml:space="preserve">
+        <code><![CDATA[$this->get('request')->getSession()->set('${key}', ${value}); ]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="em" xml:space="preserve">
+        <code><![CDATA[$em = $this->get('doctrine.orm.entity_manager');]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="req" xml:space="preserve">
+        <code><![CDATA[$this->get('request')]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="epers" xml:space="preserve">
+        <code><![CDATA[$em->persist(${obj});]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="resp" xml:space="preserve">
+        <code><![CDATA[$this->get('response')]]></code>
+    </codetemplate>
+</codetemplates>

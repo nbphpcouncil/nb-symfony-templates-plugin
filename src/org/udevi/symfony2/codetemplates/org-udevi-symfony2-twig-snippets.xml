@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE codetemplates PUBLIC "-//NetBeans//DTD Editor Code Templates settings 1.0//EN" "http://www.netbeans.org/dtds/EditorCodeTemplates-1_0.dtd">
+<codetemplates>
+    <codetemplate abbreviation="img" xml:space="preserve">
+        <code><![CDATA[<img src="{{ asset('${file}') }}" alt="${alt}" />]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="path" xml:space="preserve">
+        <code><![CDATA[{{ path('${routename}') }}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="block" xml:space="preserve">
+        <code><![CDATA[{% block ${name} %}
+    ${cursor}
+{% endblock %}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="url" xml:space="preserve">
+        <code><![CDATA[{{ url('${routename}') }}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="css" xml:space="preserve">
+        <code><![CDATA[<link href="{{ asset('${file}') }}" rel="stylesheet" type="text/css" />]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="ext" xml:space="preserve">
+        <code><![CDATA[{{ extends "${template}" }}]]></code>
+    </codetemplate>
+     <codetemplate abbreviation="pinclude" xml:space="preserve">
+        <code><![CDATA[{% include '${template}' with { '${objName}': ${obj} } %}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="pextend" xml:space="preserve">
+        <code><![CDATA[{% extends '${template}' %}]]></code>
+    </codetemplate>
+    <codetemplate abbreviation="prender" xml:space="preserve">
+        <code><![CDATA[{% render '${template}' %}]]></code>
+    </codetemplate>
+</codetemplates>
