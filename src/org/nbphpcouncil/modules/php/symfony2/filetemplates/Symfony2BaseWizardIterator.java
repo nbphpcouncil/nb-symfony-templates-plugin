@@ -2,13 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.udevi.symfony2.filetemplates;
+package org.nbphpcouncil.modules.php.symfony2.filetemplates;
 
 import java.awt.Component;
 import java.io.IOException;
 import java.util.*;
 import javax.swing.JComponent;
 import javax.swing.event.ChangeListener;
+import org.nbphpcouncil.modules.php.symfony2.filetemplates.utils.FileTemplatesUtils;
 import org.netbeans.api.project.Project;
 import org.netbeans.api.project.ProjectUtils;
 import org.netbeans.api.project.SourceGroup;
@@ -18,7 +19,6 @@ import org.openide.WizardDescriptor;
 import org.openide.filesystems.FileObject;
 import org.openide.loaders.DataFolder;
 import org.openide.loaders.DataObject;
-import org.udevi.symfony2.filetemplates.utils.FileTemplatesUtils;
 
 // TODO define position attribute
 public class Symfony2BaseWizardIterator implements WizardDescriptor.InstantiatingIterator<WizardDescriptor> {
