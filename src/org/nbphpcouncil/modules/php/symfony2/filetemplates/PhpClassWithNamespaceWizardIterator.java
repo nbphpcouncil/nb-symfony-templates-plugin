@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.udevi.symfony2.filetemplates;
+package org.nbphpcouncil.modules.php.symfony2.filetemplates;
 
 import java.io.IOException;
 import java.util.Collections;
