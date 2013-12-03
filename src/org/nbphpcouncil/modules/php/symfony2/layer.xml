@@ -3,54 +3,54 @@
 <filesystem>
     <folder name="Editors">
         <folder name="text">
-            <folder name="x-twig">
+            <folder name="x-twig-markup">
                 <folder name="CodeTemplates">
-                    <file name="org-udevi-symfony2-twig-snippets.xml" url="nbresloc:/org/udevi/symfony2/codetemplates/org-udevi-symfony2-twig-snippets.xml"/>
+                    <file name="org-nbphpcouncil-modules-php-symfony2-twig-snippets.xml" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/codetemplates/org-nbphpcouncil-modules-php-symfony2-twig-snippets.xml"/>
                 </folder>
             </folder>
             <folder name="x-php5">
                 <folder name="CodeTemplates">
-                    <file name="org-udevi-symfony2-controller-snippets.xml" url="nbresloc:/org/udevi/symfony2/codetemplates/org-udevi-symfony2-controller-snippets.xml"/>
+                    <file name="org-nbphpcouncil-modules-php-symfony2-controller-snippets.xml" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/codetemplates/org-nbphpcouncil-modules-php-symfony2-controller-snippets.xml"/>
                 </folder>
             </folder>
             <folder name="x-php-doccomment">
                 <folder name="CodeTemplates">
-                    <file name="org-udevi-symfony2-orm-annotation-snippets.xml" url="nbresloc:/org/udevi/symfony2/codetemplates/org-udevi-symfony2-orm-annotation-snippets.xml"/>
+                    <file name="org-nbphpcouncil-modules-php-symfony2-orm-annotation-snippets.xml" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/codetemplates/org-nbphpcouncil-modules-php-symfony2-orm-annotation-snippets.xml"/>
                 </folder>
             </folder>
         </folder>
     </folder>
     <folder name="Templates">
         <folder name="Scripting">
-            <attr name="SystemFileSystem.localizingBundle" stringvalue="org.udevi.symfony2.filetemplates"/>
+            <attr name="SystemFileSystem.localizingBundle" stringvalue="org.nbphpcouncil.modules.php.symfony2.filetemplates"/>
             <attr name="position" intvalue="20"/>
-            <file name="Symfony2EntityTemplate.php" url="nbresloc:/org/udevi/symfony2/filetemplates/Symfony2EntityTemplate.php">
-                <attr name="iconBase" stringvalue="org/udevi/symfony2/filetemplates/logo.png"/>
-                <attr name="displayName" bundlevalue="org.udevi.symfony2.Bundle#Templates/Scripting/Symfony2EntityTemplate"/>
+            <file name="Symfony2EntityTemplate.php" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/Symfony2EntityTemplate.php">
+                <attr name="iconBase" stringvalue="org/nbphpcouncil/modules/php/symfony2/filetemplates/logo.png"/>
+                <attr name="displayName" bundlevalue="org.nbphpcouncil.modules.php.symfony2.Bundle#Templates/Scripting/Symfony2EntityTemplate"/>
                 <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
-                <attr name="instantiatingIterator" newvalue="org.udevi.symfony2.filetemplates.Symfony2EntityWizardIterator"/>
+                <attr name="instantiatingIterator" newvalue="org.nbphpcouncil.modules.php.symfony2.filetemplates.Symfony2EntityWizardIterator"/>
                 <attr name="template" boolvalue="true"/>
-                <attr name="templateWizardURL" urlvalue="nbresloc:/org/udevi/symfony2/filetemplates/symfony2Entity.html"/>
+                <attr name="templateWizardURL" urlvalue="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/symfony2Entity.html"/>
                 <attr name="templateCategory" stringvalue="PHP"/>
                 <attr name="position" intvalue="100"/>
             </file>
-            <file name="ClassWithNamespace.php" url="nbresloc:/org/udevi/symfony2/filetemplates/ClassWithNamespace.php">
-                <attr name="iconBase" stringvalue="org/udevi/symfony2/filetemplates/logo.png"/>
-                <attr name="displayName" bundlevalue="org.udevi.symfony2.Bundle#Templates/Scripting/ClassWithNamespace"/>
+            <file name="ClassWithNamespace.php" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/ClassWithNamespace.php">
+                <attr name="iconBase" stringvalue="org/nbphpcouncil/modules/php/symfony2/filetemplates/logo.png"/>
+                <attr name="displayName" bundlevalue="org.nbphpcouncil.modules.php.symfony2.Bundle#Templates/Scripting/ClassWithNamespace"/>
                 <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
-                <attr name="instantiatingIterator" newvalue="org.udevi.symfony2.filetemplates.PhpClassWithNamespaceWizardIterator"/>
+                <attr name="instantiatingIterator" newvalue="org.nbphpcouncil.modules.php.symfony2.filetemplates.PhpClassWithNamespaceWizardIterator"/>
                 <attr name="template" boolvalue="true"/>
-                <attr name="templateWizardURL" urlvalue="nbresloc:/org/udevi/symfony2/filetemplates/classWithNamespace.html"/>
+                <attr name="templateWizardURL" urlvalue="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/classWithNamespace.html"/>
                 <attr name="templateCategory" stringvalue="PHP"/>
                 <attr name="position" intvalue="110"/>
             </file>
-            <file name="Symfony2ControllerTemplate.php" url="nbresloc:/org/udevi/symfony2/filetemplates/Symfony2ControllerTemplate.php">
-                <attr name="iconBase" stringvalue="org/udevi/symfony2/filetemplates/logo.png"/>
-                <attr name="displayName" bundlevalue="org.udevi.symfony2.Bundle#Templates/Scripting/Symfony2ControllerTemplate"/>
+            <file name="Symfony2ControllerTemplate.php" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/Symfony2ControllerTemplate.php">
+                <attr name="iconBase" stringvalue="org/nbphpcouncil/modules/php/symfony2/filetemplates/logo.png"/>
+                <attr name="displayName" bundlevalue="org.nbphpcouncil.modules.php.symfony2.Bundle#Templates/Scripting/Symfony2ControllerTemplate"/>
                 <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
-                <attr name="instantiatingIterator" newvalue="org.udevi.symfony2.filetemplates.PhpClassWithNamespaceWizardIterator"/>
+                <attr name="instantiatingIterator" newvalue="org.nbphpcouncil.modules.php.symfony2.filetemplates.PhpClassWithNamespaceWizardIterator"/>
                 <attr name="template" boolvalue="true"/>
-                <attr name="templateWizardURL" urlvalue="nbresloc:/org/udevi/symfony2/filetemplates/symfony2ControllerTemplate.html"/>
+                <attr name="templateWizardURL" urlvalue="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/symfony2ControllerTemplate.html"/>
                 <attr name="templateCategory" stringvalue="PHP"/>
                 <attr name="position" intvalue="120"/>
             </file>
