@@ -54,6 +54,7 @@
                 <attr name="templateCategory" stringvalue="PHP"/>
                 <attr name="position" intvalue="120"/>
             </file>
-        </folder>  
+            <file name="Symfony2RepositoryTemplate.php" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/Symfony2RepositoryTemplate.php" />
+        </folder>
     </folder>
 </filesystem>
