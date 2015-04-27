@@ -4,24 +4,26 @@
  */
 package org.nbphpcouncil.modules.php.symfony2.filetemplates;
 
-import java.awt.Component;
 import java.io.IOException;
-import java.util.*;
-import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Set;
 import javax.swing.event.ChangeListener;
 import org.nbphpcouncil.modules.php.symfony2.filetemplates.utils.FileTemplatesUtils;
 import org.netbeans.api.project.Project;
 import org.netbeans.api.project.ProjectUtils;
 import org.netbeans.api.project.SourceGroup;
 import org.netbeans.api.project.Sources;
-import org.netbeans.api.templates.TemplateRegistration;
 import org.netbeans.spi.project.ui.templates.support.Templates;
 import org.openide.WizardDescriptor;
-import org.openide.WizardDescriptor.Panel;
 import org.openide.filesystems.FileObject;
+import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataFolder;
 import org.openide.loaders.DataObject;
-import org.openide.util.NbBundle.Messages;
 
 // TODO define position attribute
 //@TemplateRegistration(folder = "AWTForms", displayName = "#Symfony2EntityWizardIterator_displayName", description = "symfony2Entity.html")
@@ -43,7 +45,7 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
             panels = new ArrayList<WizardDescriptor.Panel<WizardDescriptor>>();
             panels.add(chooserBuilder.create());
         }
-        
+
         return panels;
     }
 
@@ -51,11 +53,11 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
     public Set<FileObject> instantiate() throws IOException {
         boolean isRepositoryDeclared = (Boolean) wizard.getProperty(Symfony2EntityVisualPanel1.IS_REPO_DECLARED);
         String optionalTableName = (String) wizard.getProperty(Symfony2EntityVisualPanel1.OPTIONAL_TABLE_NAME);
-        
+
         //Get the package:
         FileObject dir = Templates.getTargetFolder(wizard);
         DataFolder df = DataFolder.findFolder(dir);
-        
+
         //Get the template and convert it:
         FileObject template = Templates.getTemplate(wizard);
         DataObject dTemplate = DataObject.find(template);
@@ -64,30 +66,45 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
         String targetName = Templates.getTargetName(wizard);
 
         Map<String, Object> args = new HashMap<String, Object>();
-        
-        if (FileTemplatesUtils.isNullOrEmpty(optionalTableName)){
+
+        if (FileTemplatesUtils.isNullOrEmpty(optionalTableName)) {
             optionalTableName = FileTemplatesUtils.tableize(targetName);
         }
-        
+
         String namespace = FileTemplatesUtils.getNamespaceForPhp(dir.toURL().toString());
-        
+
         args.put("repoDeclared", isRepositoryDeclared);
         args.put("optionalTableName", optionalTableName);
         args.put("namespaceDir", namespace);
-        
-        if (isRepositoryDeclared){
+
+        Set<FileObject> files = new HashSet<>();
+        if (isRepositoryDeclared) {
             args.put("namespaceForRepository", FileTemplatesUtils.getNamespaceForRepository(namespace));
+
+            FileObject repositoryTemplate = FileUtil.getConfigFile("Templates/Scripting/Symfony2RepositoryTemplate.php"); // NOI18N
+            assert repositoryTemplate != null;
+            DataObject repositoryDataObject = DataObject.find(repositoryTemplate);
+            String repositoryFileName = String.format("%sRepository", targetName); // NOI18N
+            DataObject createdRepository = repositoryDataObject.createFromTemplate(df, repositoryFileName, args);
+            if (createdRepository != null) {
+                FileObject repositoryFile = createdRepository.getPrimaryFile();
+                if (repositoryFile != null) {
+                    files.add(repositoryFile);
+                }
+            }
         }
-        
+
         //Define the template from the above,
         //passing the package, the file name, and the map of strings to the template:
         DataObject dobj = dTemplate.createFromTemplate(df, targetName, args);
 
         //Obtain a FileObject:
         FileObject createdFile = dobj.getPrimaryFile();
-
+        if (createdFile != null) {
+            files.add(createdFile);
+        }
         //Create the new file:
-        return Collections.singleton(createdFile);
+        return files;
     }
 
     @Override
@@ -144,5 +161,5 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
     @Override
     public void removeChangeListener(ChangeListener l) {
     }
-  
+
 }
