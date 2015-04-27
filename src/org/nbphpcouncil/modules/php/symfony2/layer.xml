@@ -54,7 +54,11 @@
                 <attr name="templateCategory" stringvalue="PHP"/>
                 <attr name="position" intvalue="120"/>
             </file>
-            <file name="Symfony2RepositoryTemplate.php" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/Symfony2RepositoryTemplate.php" />
+            <file name="Symfony2RepositoryTemplate.php" url="nbresloc:/org/nbphpcouncil/modules/php/symfony2/filetemplates/Symfony2RepositoryTemplate.php" >
+                <attr name="displayName" bundlevalue="org.nbphpcouncil.modules.php.symfony2.Bundle#Templates/Scripting/Symfony2RepositoryTemplate"/>
+                <attr name="javax.script.ScriptEngine" stringvalue="freemarker"/>
+                <attr name="template" boolvalue="true"/>
+            </file>
         </folder>
     </folder>
 </filesystem>
