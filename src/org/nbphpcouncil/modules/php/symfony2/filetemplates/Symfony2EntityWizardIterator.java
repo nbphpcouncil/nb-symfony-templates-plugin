@@ -79,13 +79,19 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
 
         Set<FileObject> files = new HashSet<>();
         if (isRepositoryDeclared) {
-            args.put("namespaceForRepository", FileTemplatesUtils.getNamespaceForRepository(namespace));
+            
+            String repoNamespace = FileTemplatesUtils.getNamespaceForRepository(namespace);
+            
+            args.put("namespaceForRepository", repoNamespace);
 
+            Map<String, Object> repoArgs = new HashMap<>();
+            repoArgs.put("repoNamespace", repoNamespace);
+            
             FileObject repositoryTemplate = FileUtil.getConfigFile("Templates/Scripting/Symfony2RepositoryTemplate.php"); // NOI18N
             assert repositoryTemplate != null;
             DataObject repositoryDataObject = DataObject.find(repositoryTemplate);
             String repositoryFileName = String.format("%sRepository", targetName); // NOI18N
-            DataObject createdRepository = repositoryDataObject.createFromTemplate(df, repositoryFileName, args);
+            DataObject createdRepository = repositoryDataObject.createFromTemplate(df, repositoryFileName, repoArgs);
             if (createdRepository != null) {
                 FileObject repositoryFile = createdRepository.getPrimaryFile();
                 if (repositoryFile != null) {
