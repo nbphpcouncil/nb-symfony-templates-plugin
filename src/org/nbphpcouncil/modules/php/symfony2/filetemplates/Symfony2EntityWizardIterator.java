@@ -105,7 +105,7 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
                     }
                 }
             } else {
-                LOGGER.log(Level.INFO, "Can't found the Repository directoy.");
+                LOGGER.log(Level.INFO, "Can't find the Repository directoy.");
             }
         }
 
