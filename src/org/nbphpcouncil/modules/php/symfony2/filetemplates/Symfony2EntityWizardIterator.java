@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.ChangeListener;
 import org.nbphpcouncil.modules.php.symfony2.filetemplates.utils.FileTemplatesUtils;
 import org.netbeans.api.project.Project;
@@ -33,6 +35,7 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
     private int index;
     private WizardDescriptor wizard;
     private List<WizardDescriptor.Panel<WizardDescriptor>> panels;
+    private static final Logger LOGGER = Logger.getLogger(Symfony2EntityWizardIterator.class.getName());
 
     private List<WizardDescriptor.Panel<WizardDescriptor>> getPanels() {
         Project project = Templates.getProject(wizard);
@@ -55,8 +58,8 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
         String optionalTableName = (String) wizard.getProperty(Symfony2EntityVisualPanel1.OPTIONAL_TABLE_NAME);
 
         //Get the package:
-        FileObject dir = Templates.getTargetFolder(wizard);
-        DataFolder df = DataFolder.findFolder(dir);
+        FileObject entityDir = Templates.getTargetFolder(wizard);
+        DataFolder df = DataFolder.findFolder(entityDir);
 
         //Get the template and convert it:
         FileObject template = Templates.getTemplate(wizard);
@@ -71,7 +74,7 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
             optionalTableName = FileTemplatesUtils.tableize(targetName);
         }
 
-        String namespace = FileTemplatesUtils.getNamespaceForPhp(dir.toURL().toString());
+        String namespace = FileTemplatesUtils.getNamespaceForPhp(entityDir.toURL().toString());
 
         args.put("repoDeclared", isRepositoryDeclared);
         args.put("optionalTableName", optionalTableName);
@@ -79,24 +82,30 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
 
         Set<FileObject> files = new HashSet<>();
         if (isRepositoryDeclared) {
-            
+
             String repoNamespace = FileTemplatesUtils.getNamespaceForRepository(namespace);
-            
+
             args.put("namespaceForRepository", repoNamespace);
 
             Map<String, Object> repoArgs = new HashMap<>();
             repoArgs.put("repoNamespace", repoNamespace);
-            
+
             FileObject repositoryTemplate = FileUtil.getConfigFile("Templates/Scripting/Symfony2RepositoryTemplate.php"); // NOI18N
             assert repositoryTemplate != null;
-            DataObject repositoryDataObject = DataObject.find(repositoryTemplate);
-            String repositoryFileName = String.format("%sRepository", targetName); // NOI18N
-            DataObject createdRepository = repositoryDataObject.createFromTemplate(df, repositoryFileName, repoArgs);
-            if (createdRepository != null) {
-                FileObject repositoryFile = createdRepository.getPrimaryFile();
-                if (repositoryFile != null) {
-                    files.add(repositoryFile);
+
+            DataFolder repositoryDataFolder = getRepositoryDataFolder(entityDir);
+            if (repositoryDataFolder != null) {
+                DataObject repositoryDataObject = DataObject.find(repositoryTemplate);
+                String repositoryFileName = String.format("%sRepository", targetName); // NOI18N
+                DataObject createdRepository = repositoryDataObject.createFromTemplate(repositoryDataFolder, repositoryFileName, repoArgs);
+                if (createdRepository != null) {
+                    FileObject repositoryFile = createdRepository.getPrimaryFile();
+                    if (repositoryFile != null) {
+                        files.add(repositoryFile);
+                    }
                 }
+            } else {
+                LOGGER.log(Level.INFO, "Can't found the Repository directoy.");
             }
         }
 
@@ -111,6 +120,18 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
         }
         //Create the new file:
         return files;
+    }
+
+    private DataFolder getRepositoryDataFolder(FileObject entityDir) {
+        DataFolder repositoryDataFolder = null;
+        FileObject parent = entityDir.getParent();
+        if (parent != null) {
+            FileObject repositoryDir = parent.getFileObject("Repository"); // NOI18N
+            if (repositoryDir != null && repositoryDir.isFolder()) {
+                repositoryDataFolder = DataFolder.findFolder(repositoryDir);
+            }
+        }
+        return repositoryDataFolder;
     }
 
     @Override
