@@ -22,10 +22,12 @@ import org.netbeans.api.project.SourceGroup;
 import org.netbeans.api.project.Sources;
 import org.netbeans.spi.project.ui.templates.support.Templates;
 import org.openide.WizardDescriptor;
+import org.openide.awt.StatusDisplayer;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataFolder;
 import org.openide.loaders.DataObject;
+import org.openide.util.NbBundle;
 
 // TODO define position attribute
 //@TemplateRegistration(folder = "AWTForms", displayName = "#Symfony2EntityWizardIterator_displayName", description = "symfony2Entity.html")
@@ -52,6 +54,10 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
         return panels;
     }
 
+    @NbBundle.Messages({
+        "# {0} - file name",
+        "Symfony2EntityWizardIterator.existingFile.error={0} already exists."
+    })
     @Override
     public Set<FileObject> instantiate() throws IOException {
         boolean isRepositoryDeclared = (Boolean) wizard.getProperty(Symfony2EntityVisualPanel1.IS_REPO_DECLARED);
@@ -97,11 +103,19 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
             if (repositoryDataFolder != null) {
                 DataObject repositoryDataObject = DataObject.find(repositoryTemplate);
                 String repositoryFileName = String.format("%sRepository", targetName); // NOI18N
-                DataObject createdRepository = repositoryDataObject.createFromTemplate(repositoryDataFolder, repositoryFileName, repoArgs);
-                if (createdRepository != null) {
-                    FileObject repositoryFile = createdRepository.getPrimaryFile();
-                    if (repositoryFile != null) {
-                        files.add(repositoryFile);
+                FileObject existsRepository = getExistsRepository(repositoryDataFolder, repositoryFileName);
+                if (existsRepository != null) {
+                    files.add(existsRepository);
+                    String errorMessage = Bundle.Symfony2EntityWizardIterator_existingFile_error(repositoryFileName);
+                    StatusDisplayer.getDefault().setStatusText(errorMessage);
+                    LOGGER.log(Level.WARNING, errorMessage);
+                } else {
+                    DataObject createdRepository = repositoryDataObject.createFromTemplate(repositoryDataFolder, repositoryFileName, repoArgs);
+                    if (createdRepository != null) {
+                        FileObject repositoryFile = createdRepository.getPrimaryFile();
+                        if (repositoryFile != null) {
+                            files.add(repositoryFile);
+                        }
                     }
                 }
             } else {
@@ -132,6 +146,15 @@ public final class Symfony2EntityWizardIterator implements WizardDescriptor.Inst
             }
         }
         return repositoryDataFolder;
+    }
+
+    private FileObject getExistsRepository(DataFolder df, String repoName) {
+        FileObject repoDir = df.getPrimaryFile();
+        FileObject repoFile = null;
+        if (repoDir != null) {
+            repoFile = repoDir.getFileObject(repoName, "php"); // NOI18N
+        }
+        return repoFile;
     }
 
     @Override
